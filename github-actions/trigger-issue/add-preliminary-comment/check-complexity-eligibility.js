@@ -207,7 +207,8 @@ function formatCurrentIssue(issue, sender) {
 * @returns {boolean} True if the assignee is eligible, false otherwise.
 */
 
-function isEligibleForIssue(currentIssue, previousIssues, assigneeRole) {  
+function isEligibleForIssue(currentIssue, previousIssues, assigneeRole) {
+  console.log("isEligibleForIssue");  
   const currentIssueComplexityAndRoles = extractComplexityAndRolesFromLabels(
     [currentIssue]
   );
@@ -301,10 +302,12 @@ function isEligibleForIssue(currentIssue, previousIssues, assigneeRole) {
 
 // Extracts complexity and roles from issue labels.
 function extractComplexityAndRolesFromLabels(issues) {
+  console.log("extractComplexityAndRolesFromLabels");
   // Filter to only include issues not created by assignee
-  const filteredIssues = issues.filter(
+  /*const filteredIssues = issues.filter(
     issue => issue.assigneeId !== issue.creatorId
-  );
+  );*/
+  const filteredIssues = issues;
   
   return filteredIssues.map(issue => ({
     complexity: issue.labels.find(
@@ -322,6 +325,7 @@ function extractComplexityAndRolesFromLabels(issues) {
 
 // Extracts the Skills Issue (Pre-work Checklist) from assigned issues.
 function extractPreWorkIssueFromIssues(assignedIssues) {
+  console.log("extractPreWorkIssueFromIssues");
   const preWorkIssue = assignedIssues.find(
     issue => issue.labels.includes(complexity0)
   );
