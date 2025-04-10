@@ -82,7 +82,7 @@ async function checkComplexityEligibility(
   if (currentIssue.assigneeId === currentIssue.creatorId ||
       currentIssue.assigneeId !== currentIssue.assignerId) {
     console.log("issue created by assignee or not self-assigned, skip complexity check");
-    return true;
+    //return true;
   }
   
   const hasAnyLabel = (labels, referenceLabels) =>
