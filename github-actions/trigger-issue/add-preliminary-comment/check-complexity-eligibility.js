@@ -54,6 +54,7 @@ async function checkComplexityEligibility(
   context,
   isAdminOrMerge
 ) {
+  console.log("in check complexity");
   // If assignee is an admin or merge team member, skip complexity check
   if (isAdminOrMerge) {
     return true;
@@ -70,6 +71,7 @@ async function checkComplexityEligibility(
     context,
     currentIssue.issueNum
   );
+  console.log("query issue info");
 
   // If issue's status is New Issue Approval, skip complexity check
   if (statusName === NEW_ISSUE_APPROVAL) {
@@ -97,11 +99,13 @@ async function checkComplexityEligibility(
     return true;
   }
 
+  console.log("fecth issues by assignee before");
   const assignedIssues = await fetchIssuesByAssignee(
     github,
     context,
     currentIssue.assigneeUsername
   );
+  console.log("fecth issues by assignee");
   const previousIssues = assignedIssues.filter(
     issue => issue.issueNum !== currentIssue.issueNum
   );
@@ -116,12 +120,15 @@ async function checkComplexityEligibility(
   );
 
   if (!issueComplexityPermitted) {
+    console.log("query issue info before");
     const { id: preWorkIssueProjectItemId } =
       await queryIssueInfo(
         github,
         context,
         preWorkIssue.issueNum
       );
+      console.log("query issue info");
+      console.log("handle issue complexity not permitted before");
     await handleIssueComplexityNotPermitted(
       github,
       context,
@@ -131,6 +138,7 @@ async function checkComplexityEligibility(
       preWorkIssue,
       preWorkIssueProjectItemId
     );
+    console.log("handle issue complexity not permitted");
   }
 
   return issueComplexityPermitted;
