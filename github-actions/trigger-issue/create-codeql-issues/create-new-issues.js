@@ -1,4 +1,4 @@
-const fs = require('fs'
+const fs = require('fs');
 
 // Global variables
 var github;
